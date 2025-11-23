@@ -21,15 +21,46 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET dashboard page (authenticated users only) */
-router.get('/dashboard', requireAuth, function(req, res, next) {
-  res.render('dashboard', { 
-    title: 'Dashboard',
-    displayName: req.user.displayName,
-    budgetCount: 0,
-    totalExpenses: 0,
-    goalCount: 0,
-    progressPercentage: 0
-  });
+router.get('/dashboard', requireAuth, async function(req, res, next) {
+  try {
+    const Budget = require('../model/budget');
+    const Expense = require('../model/expense');
+    const Goal = require('../model/goal');
+
+    // fetch user's data
+    const [budgets, expenses, goals] = await Promise.all([
+      Budget.find({ user: req.user._id }).lean(),
+      Expense.find({ user: req.user._id }).lean(),
+      Goal.find({ user: req.user._id }).lean()
+    ]);
+
+    const budgetCount = budgets ? budgets.length : 0;
+    const totalBudgetAmount = budgets && budgets.length ? budgets.reduce((s, b) => s + (parseFloat(b.amount) || 0), 0) : 0;
+
+    const totalExpenses = expenses && expenses.length ? expenses.reduce((s, e) => s + (parseFloat(e.amount) || 0), 0) : 0;
+
+    const goalCount = goals ? goals.length : 0;
+    // progress: compute overall saved/target percent (sum currentAmount / sum targetAmount)
+    const totalTarget = goals && goals.length ? goals.reduce((s, g) => s + (parseFloat(g.targetAmount) || 0), 0) : 0;
+    const totalSaved = goals && goals.length ? goals.reduce((s, g) => s + (parseFloat(g.currentAmount) || 0), 0) : 0;
+    const progressPercentage = totalTarget > 0 ? Math.min(100, Math.round((totalSaved / totalTarget) * 100)) : 0;
+
+    res.render('dashboard', {
+      title: 'Dashboard',
+      displayName: req.user.displayName,
+      budgetCount: budgetCount,
+      totalExpenses: totalExpenses,
+      goalCount: goalCount,
+      progressPercentage: progressPercentage,
+      totalBudgetAmount: totalBudgetAmount,
+      budgets: budgets,
+      expenses: expenses,
+      goals: goals
+    });
+  } catch (err) {
+    console.error('Error rendering dashboard:', err && err.stack ? err.stack : err);
+    next(err);
+  }
 });
 
 /* GET home page. */
