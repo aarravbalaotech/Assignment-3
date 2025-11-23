@@ -15,11 +15,15 @@ function requireAuth(req,res,next)
 router.get('/',async(req,res,next)=>{
     try{
         const BookList = await Book.find();
-        res.render('Books/list',{
-            title:'Books',
-            BookList:BookList,
-            displayName: req.user?req.user.displayName:""
-        })
+        if (req.accepts('html')) {
+            res.render('Books/list', {
+                title: 'Books',
+                BookList: BookList,
+                displayName: req.user ? req.user.displayName : ""
+            });
+        } else {
+            res.json(BookList);
+        }
     }
     catch(err)
     {
