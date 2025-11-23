@@ -1,0 +1,85 @@
+<%- include('../partials/header') %>
+
+<div class="dashboard-container">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <h2><i class="fas fa-target"></i> Savings Goals</h2>
+        <p class="text-muted">Track and achieve your financial targets</p>
+      </div>
+      <div class="col-md-6 text-end">
+        <a href="/goals/add" class="btn btn-success btn-lg">
+          <i class="fas fa-plus"></i> Add New Goal
+        </a>
+      </div>
+    </div>
+
+    <% if(GoalList && GoalList.length > 0) { %>
+      <div class="row">
+        <% GoalList.forEach(goal => {
+          let progress = goal.targetAmount ? Math.min(100, Math.round((goal.currentAmount / goal.targetAmount) * 100)) : 0;
+          let isCompleted = goal.completed || progress >= 100;
+        %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100">
+            <div class="card-header" style="<%= isCompleted ? 'background: linear-gradient(135deg, #27ae60 0%, #229954 100%);' : 'background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);' %>">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0"><i class="fas fa-bullseye"></i> <%= goal.title %></h5>
+                <% if(isCompleted) { %>
+                  <span class="badge bg-light text-success"><i class="fas fa-check-circle"></i> Completed</span>
+                <% } %>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <div class="d-flex justify-content-between mb-2">
+                  <span>Progress</span>
+                  <span class="badge bg-primary"><%= progress %>%</span>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: <%= progress %>%; background: linear-gradient(90deg, var(--success-color) 0%, var(--info-color) 100%);"></div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <p class="mb-1"><strong>Target:</strong></p>
+                <p class="text-success" style="font-size: 1.3rem; font-weight: bold;">$<%= parseFloat(goal.targetAmount).toFixed(2) %></p>
+              </div>
+
+              <div class="mb-3">
+                <p class="mb-1"><strong>Saved:</strong></p>
+                <p style="font-size: 1.2rem; font-weight: bold; color: var(--secondary-color);">$<%= parseFloat(goal.currentAmount).toFixed(2) %></p>
+              </div>
+
+              <% if(goal.deadline) { %>
+                <div class="mb-3">
+                  <p class="mb-1"><strong>Deadline:</strong></p>
+                  <p><i class="fas fa-calendar"></i> <%= new Date(goal.deadline).toLocaleDateString() %></p>
+                </div>
+              <% } %>
+
+              <div class="d-grid gap-2 d-sm-flex">
+                <a href="/goals/edit/<%= goal._id %>" class="btn btn-sm btn-warning flex-grow-1">
+                  <i class="fas fa-edit"></i> Edit
+                </a>
+                <a href="/goals/delete/<%= goal._id %>" class="btn btn-sm btn-danger flex-grow-1" onclick="return confirm('Delete this goal?')">
+                  <i class="fas fa-trash"></i> Delete
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <div class="empty-state">
+        <i class="fas fa-inbox"></i>
+        <h3>No Savings Goals Yet</h3>
+        <p>Start building your financial future by creating your first savings goal.</p>
+        <a href="/goals/add" class="btn btn-success">Create Goal</a>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

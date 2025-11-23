@@ -1,0 +1,52 @@
+<%- include('../partials/header') %>
+
+<div class="dashboard-container">
+  <div class="container">
+    <div class="card" style="max-width: 600px; margin: 0 auto;">
+      <div class="card-header">
+        <i class="fas fa-edit"></i> Edit Savings Goal
+      </div>
+      <div class="card-body">
+        <form method="POST" action="/goals/edit/<%= Goal._id %>">
+          <div class="mb-3">
+            <label for="title" class="form-label">Goal Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="<%= Goal.title %>" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="targetAmount" class="form-label">Target Amount ($)</label>
+            <input type="number" class="form-control" id="targetAmount" name="targetAmount" step="0.01" value="<%= Goal.targetAmount %>" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="currentAmount" class="form-label">Amount Saved So Far ($)</label>
+            <input type="number" class="form-control" id="currentAmount" name="currentAmount" step="0.01" value="<%= Goal.currentAmount %>" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="deadline" class="form-label">Target Deadline (optional)</label>
+            <input type="date" class="form-control" id="deadline" name="deadline" value="<%= Goal.deadline ? Goal.deadline.toISOString().split('T')[0] : '' %>">
+          </div>
+
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="completed" name="completed" <%= Goal.completed ? 'checked' : '' %>>
+            <label class="form-check-label" for="completed">
+              <i class="fas fa-check-circle"></i> Mark this goal as completed
+            </label>
+          </div>
+
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
+            <a href="/goals" class="btn btn-secondary btn-lg">
+              <i class="fas fa-times"></i> Cancel
+            </a>
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="fas fa-check"></i> Update Goal
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

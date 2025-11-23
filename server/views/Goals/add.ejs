@@ -1,0 +1,44 @@
+<%- include('../partials/header') %>
+
+<div class="dashboard-container">
+  <div class="container">
+    <div class="card" style="max-width: 600px; margin: 0 auto;">
+      <div class="card-header">
+        <i class="fas fa-plus"></i> Create New Savings Goal
+      </div>
+      <div class="card-body">
+        <form method="POST" action="/goals/add">
+          <div class="mb-3">
+            <label for="title" class="form-label">Goal Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="e.g., Summer Vacation Fund" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="targetAmount" class="form-label">Target Amount ($)</label>
+            <input type="number" class="form-control" id="targetAmount" name="targetAmount" step="0.01" min="0" placeholder="0.00" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="deadline" class="form-label">Target Deadline (optional)</label>
+            <input type="date" class="form-control" id="deadline" name="deadline">
+          </div>
+
+          <div class="alert alert-info" role="alert">
+            <i class="fas fa-info-circle"></i> You can update the amount you've saved after creating the goal.
+          </div>
+
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
+            <a href="/goals" class="btn btn-secondary btn-lg">
+              <i class="fas fa-times"></i> Cancel
+            </a>
+            <button type="submit" class="btn btn-success btn-lg">
+              <i class="fas fa-check"></i> Create Goal
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
