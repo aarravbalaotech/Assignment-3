@@ -1,7 +1,5 @@
-const { trim, type } = require('jquery');
 let mongoose = require('mongoose');
 let passportLocalMongoose = require('passport-local-mongoose');
-const { collection } = require('./book');
 
 let User = mongoose.Schema({
     username:
@@ -11,26 +9,19 @@ let User = mongoose.Schema({
         trim:true,
         required:'Username is required'
     },
-    /*password:
-    {
-        type:String,
-        default:"",
-        trim:true,
-        required:'Password is required'
-    },*/
     email:
     {
         type:String,
         default:"",
         trim:true,
-        required:'email is required'
+        required:'Email is required'
     },
     displayName:
     {
         type:String,
         default:"",
         trim:true,
-        required:'displayName is required'
+        required:'Display Name is required'
     },
     created:
     {
@@ -46,7 +37,8 @@ let User = mongoose.Schema({
 {
     collection:"user"
 }
-)
+);
+
 let options = ({MissingPasswordError:'Wrong/Missing Password'});
 User.plugin(passportLocalMongoose,options);
 module.exports.User = mongoose.model('User',User);
