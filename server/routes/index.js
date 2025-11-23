@@ -115,7 +115,7 @@ router.get('/register', function(req, res, next){
   }
 });
 
-// Post method for register
+// Post method for register very annoyiong
 router.post('/register', function(req, res, next){
   let newUser = new User({
     username: req.body.username,
