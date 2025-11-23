@@ -87,3 +87,24 @@
         </div>
       </div>
     </nav>
+    <script>
+      // Client-side guard: if a user clicks a protected nav item while not authenticated,
+      // redirect immediately to the login page for a clearer UX.
+      (function(){
+        var isAuth = <%= JSON.stringify(typeof isAuthenticated !== 'undefined' ? isAuthenticated : false) %>;
+        document.addEventListener('DOMContentLoaded', function(){
+          // select links that go to protected areas
+          var protectedSelectors = ['a[href="/dashboard"]', 'a[href="/budgets"]', 'a[href="/expenses"]', 'a[href="/goals"]'];
+          protectedSelectors.forEach(function(sel){
+            document.querySelectorAll(sel).forEach(function(a){
+              a.addEventListener('click', function(e){
+                if(!isAuth){
+                  e.preventDefault();
+                  window.location.href = '/login';
+                }
+              });
+            });
+          });
+        });
+      })();
+    </script>
