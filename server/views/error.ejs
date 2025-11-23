@@ -1,6 +1,17 @@
-<%- include ./partials/header.ejs %>
-<%- include ./partials/main_nav.ejs %>
-    <h1><%= message %></h1>
-    <h2><%= error.status %></h2>
-    <pre><%= error.stack %></pre>
-<%- include ./partials/footer.ejs %>
+<%- include('./partials/header') %>
+
+<div class="dashboard-container">
+  <div class="container mt-5">
+    <div class="alert alert-danger" role="alert">
+      <h2><i class="fas fa-exclamation-circle"></i> Error <%= error.status %></h2>
+      <h4><%= message %></h4>
+      <% if(process.env.NODE_ENV === 'development') { %>
+        <hr>
+        <pre style="background-color: #f5f5f5; padding: 15px; border-radius: 4px; overflow-x: auto;"><%= error.stack %></pre>
+      <% } %>
+    </div>
+    <a href="/" class="btn btn-primary">Back to Home</a>
+  </div>
+</div>
+
+<%- include('./partials/footer') %>
