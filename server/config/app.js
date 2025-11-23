@@ -60,6 +60,18 @@ passport.deserializeUser(User.deserializeUser());
 app.use(passport.initialize());
 app.use(passport.session());
 
+// expose authentication info to all views
+app.use(function(req, res, next) {
+  try {
+    res.locals.displayName = req.user ? req.user.displayName : "";
+    res.locals.isAuthenticated = typeof req.isAuthenticated === 'function' ? req.isAuthenticated() : !!req.user;
+  } catch (ex) {
+    res.locals.displayName = "";
+    res.locals.isAuthenticated = false;
+  }
+  next();
+});
+
 // Import routes
 var indexRouter = require('../routes/index');
 var usersRouter = require('../routes/users');
