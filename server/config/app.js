@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+const fs = require('fs');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config();
@@ -75,6 +76,16 @@ app.use(function(req, res, next) {
 // Import routes
 var indexRouter = require('../routes/index');
 var usersRouter = require('../routes/users');
+
+// Diagnostic: list files in server/routes at startup to help deployment debugging
+try {
+  const routesDir = path.join(__dirname, '..', 'routes');
+  const files = fs.readdirSync(routesDir);
+  console.log('server/config/app.js: files in server/routes ->', files);
+} catch (err) {
+  console.warn('server/config/app.js: could not list server/routes:', err && err.message);
+}
+
 let budgetsRouter = require('../routes/budget');
 let expensesRouter = require('../routes/expense');
 let goalsRouter = require('../routes/goal');
