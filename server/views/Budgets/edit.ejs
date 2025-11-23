@@ -1,0 +1,57 @@
+<%- include('../partials/header') %>
+
+<div class="dashboard-container">
+  <div class="container">
+    <div class="card" style="max-width: 600px; margin: 0 auto;">
+      <div class="card-header">
+        <i class="fas fa-edit"></i> Edit Budget
+      </div>
+      <div class="card-body">
+        <form method="POST" action="/budgets/edit/<%= Budget._id %>">
+          <div class="mb-3">
+            <label for="title" class="form-label">Budget Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="<%= Budget.title %>" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" name="category" required>
+              <option value="Rent" <%= Budget.category === 'Rent' ? 'selected' : '' %>>Rent</option>
+              <option value="Groceries" <%= Budget.category === 'Groceries' ? 'selected' : '' %>>Groceries</option>
+              <option value="Transport" <%= Budget.category === 'Transport' ? 'selected' : '' %>>Transport</option>
+              <option value="Entertainment" <%= Budget.category === 'Entertainment' ? 'selected' : '' %>>Entertainment</option>
+              <option value="Utilities" <%= Budget.category === 'Utilities' ? 'selected' : '' %>>Utilities</option>
+              <option value="Health" <%= Budget.category === 'Health' ? 'selected' : '' %>>Health</option>
+              <option value="Other" <%= Budget.category === 'Other' ? 'selected' : '' %>>Other</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="amount" class="form-label">Budget Amount ($)</label>
+            <input type="number" class="form-control" id="amount" name="amount" step="0.01" value="<%= Budget.amount %>" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="period" class="form-label">Billing Period</label>
+            <select class="form-select" id="period" name="period" required>
+              <option value="weekly" <%= Budget.period === 'weekly' ? 'selected' : '' %>>Weekly</option>
+              <option value="monthly" <%= Budget.period === 'monthly' ? 'selected' : '' %>>Monthly</option>
+              <option value="one-time" <%= Budget.period === 'one-time' ? 'selected' : '' %>>One-time</option>
+            </select>
+          </div>
+
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
+            <a href="/budgets" class="btn btn-secondary btn-lg">
+              <i class="fas fa-times"></i> Cancel
+            </a>
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="fas fa-check"></i> Update Budget
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

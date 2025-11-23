@@ -1,0 +1,59 @@
+<%- include('../partials/header') %>
+
+<div class="dashboard-container">
+  <div class="container">
+    <div class="card" style="max-width: 600px; margin: 0 auto;">
+      <div class="card-header">
+        <i class="fas fa-plus"></i> Create New Budget
+      </div>
+      <div class="card-body">
+        <form method="POST" action="/budgets/add">
+          <div class="mb-3">
+            <label for="title" class="form-label">Budget Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="e.g., Monthly Rent" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" name="category" required>
+              <option value="">-- Select a category --</option>
+              <option value="Rent">Rent</option>
+              <option value="Groceries">Groceries</option>
+              <option value="Transport">Transport</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Utilities">Utilities</option>
+              <option value="Health">Health</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="amount" class="form-label">Budget Amount ($)</label>
+            <input type="number" class="form-control" id="amount" name="amount" step="0.01" min="0" placeholder="0.00" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="period" class="form-label">Billing Period</label>
+            <select class="form-select" id="period" name="period" required>
+              <option value="">-- Select period --</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+              <option value="one-time">One-time</option>
+            </select>
+          </div>
+
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
+            <a href="/budgets" class="btn btn-secondary btn-lg">
+              <i class="fas fa-times"></i> Cancel
+            </a>
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="fas fa-check"></i> Create Budget
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
