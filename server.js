@@ -7,6 +7,8 @@
 var app = require('./server/config/app');
 var debug = require('debug')('webproject:server');
 var http = require('http');
+require('dotenv').config();
+var mongoose = require('mongoose');
 
 /**
  * Get port from environment and store in Express.
@@ -22,12 +24,45 @@ app.set('port', port);
 var server = http.createServer(app);
 
 /**
- * Listen on provided port, on all network interfaces.
+ * Start HTTP server after checking DB connection (wait up to 15s)
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+function startServer() {
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+}
+
+const conn = mongoose.connection;
+if (conn && conn.readyState === 1) {
+  // already connected
+  app.locals.dbConnected = true;
+  startServer();
+} else {
+  let started = false;
+  const timeout = setTimeout(() => {
+    if (!started) {
+      console.warn('MongoDB did not connect within 15s — starting server anyway. Some pages may be unavailable.');
+      app.locals.dbConnected = false;
+      startServer();
+      started = true;
+    }
+  }, 15000);
+
+  conn.once('open', () => {
+    if (!started) {
+      clearTimeout(timeout);
+      console.log('MongoDB connection opened — starting server');
+      app.locals.dbConnected = true;
+      startServer();
+      started = true;
+    }
+  });
+
+  conn.on('error', (err) => {
+    console.error('MongoDB connection error:', err && err.message ? err.message : err);
+  });
+}
 
 /**
  * Normalize a port into a number, string, or false.
@@ -87,4 +122,6 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  console.log(`Server running on port ${port}`);
 }
+
