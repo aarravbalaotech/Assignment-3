@@ -1,6 +1,6 @@
-/* ============================================
-   Student Finance Helper - Global Styles
-   ============================================ */
+/* 
+   Student Finance Helper - Global Styles i just did a random colour pallete search and made it like this- all designing was based of off fintech websites and their styling
+    */
 
 :root {
   --primary-color: #2c3e50;
@@ -27,7 +27,7 @@ body {
   padding-bottom: 80px;
 }
 
-/* ============ Navbar Styles ============ */
+/*  Navbar Styles  */
 .navbar {
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -64,7 +64,7 @@ body {
   margin-right: 20px;
 }
 
-/* ============ Footer Styles ============ */
+/*  Footer Styles  */
 footer {
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   color: white;
@@ -78,7 +78,7 @@ footer h6 {
   font-size: 0.9rem;
 }
 
-/* ============ Card Styles ============ */
+/*  Card Styles  */
 .card {
   border: none;
   border-radius: 8px;
@@ -110,7 +110,7 @@ footer h6 {
   margin-bottom: 15px;
 }
 
-/* ============ Dashboard Styles ============ */
+/*  Dashboard Styles  */
 .dashboard-container {
   padding: 40px 20px;
 }
@@ -166,7 +166,7 @@ footer h6 {
   letter-spacing: 1px;
 }
 
-/* ============ Form Styles ============ */
+/*  Form Styles  */
 .form-control, .form-select {
   border-radius: 6px;
   border: 2px solid #e0e0e0;
@@ -185,7 +185,7 @@ footer h6 {
   margin-bottom: 8px;
 }
 
-/* ============ Button Styles ============ */
+/*  Button Styles  */
 .btn {
   border-radius: 6px;
   font-weight: 600;
@@ -241,7 +241,7 @@ footer h6 {
   font-size: 0.85rem;
 }
 
-/* ============ Table Styles ============ */
+/*  Table Styles  */
 .table {
   background: white;
   border-radius: 8px;
@@ -277,7 +277,7 @@ footer h6 {
   padding: 12px 15px;
 }
 
-/* ============ Progress Bar Styles ============ */
+/*  Progress Bar Styles  */
 .progress {
   background-color: #e0e0e0;
   border-radius: 10px;
@@ -292,7 +292,7 @@ footer h6 {
   transition: width 0.6s ease;
 }
 
-/* ============ Alert Styles ============ */
+/*  Alert Styles  */
 .alert {
   border: none;
   border-radius: 8px;
@@ -324,7 +324,7 @@ footer h6 {
   border-color: var(--info-color);
 }
 
-/* ============ Modal Styles ============ */
+/*  Modal Styles  */
 .modal-header {
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   color: white;
@@ -339,7 +339,7 @@ footer h6 {
   padding: 25px;
 }
 
-/* ============ Auth Page Styles ============ */
+/*  Auth Page Styles  */
 .auth-container {
   display: flex;
   align-items: center;
@@ -391,7 +391,7 @@ footer h6 {
   text-decoration: underline;
 }
 
-/* ============ Splash Page Styles ============ */
+/*  Splash Page Styles  */
 .splash-container {
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   color: white;
@@ -432,7 +432,7 @@ footer h6 {
   font-size: 1.1rem;
 }
 
-/* ============ Empty State Styles ============ */
+/*  Empty State Styles  */
 .empty-state {
   text-align: center;
   padding: 60px 20px;
@@ -456,7 +456,7 @@ footer h6 {
   margin-bottom: 20px;
 }
 
-/* ============ Responsive Design ============ */
+/*  Responsive Design  */
 @media (max-width: 768px) {
   .dashboard-header h1 {
     font-size: 1.8rem;
@@ -518,7 +518,7 @@ footer h6 {
   }
 }
 
-/* ============ Utility Classes ============ */
+/*  Utility Classes  */
 .mt-custom {
   margin-top: 40px;
 }
@@ -555,12 +555,12 @@ footer h6 {
   }
 }
 
-/* ============ Loading Spinner ============ */
+/*  Loading Spinner  */
 .spinner-border {
   color: var(--secondary-color);
 }
 
-/* ============ Print Styles ============ */
+/*  Print Styles  */
 @media print {
   .navbar, footer, .btn {
     display: none;

@@ -108,7 +108,7 @@ app.use('/budgets', budgetsRouter);
 app.use('/expenses', expensesRouter);
 app.use('/goals', goalsRouter);
 
-// Redirect old /books routes to dashboard (feature removed)
+// Redirect old /books routes to dashboard ( i did not like itsofeature removed)
 app.get('/books', (req, res) => res.redirect('/dashboard'));
 app.get('/books/*', (req, res) => res.redirect('/dashboard'));
 
