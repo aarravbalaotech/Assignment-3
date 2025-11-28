@@ -7,35 +7,37 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <% if(title=="Home") { %>
+          <% if (title === "Home") { %>
             <a class="nav-link active" aria-current="page" href="/home"><i class="fa-solid fa-lg fa-house"></i> Home</a>
           <% } else { %>
             <a class="nav-link" aria-current="page" href="/home"><i class="fa-solid fa-lg fa-house"></i> Home</a>
           <% } %>
         </li>
-        
-        <li class="nav-item">
-          <% if(title=="Budgets") { %>
-            <a class="nav-link active" aria-current="page" href="/budgets"><i class="fa-solid fa-lg fa-wallet"></i> Budgets</a>
-          <% } else { %>
-            <a class="nav-link" aria-current="page" href="/budgets"><i class="fa-solid fa-lg fa-wallet"></i> Budgets</a>
-          <% } %>
-        </li>
-        <li class="nav-item">
-          <% if(title=="Expenses") { %>
-            <a class="nav-link active" aria-current="page" href="/expenses"><i class="fa-solid fa-lg fa-credit-card"></i> Expenses</a>
-          <% } else { %>
-            <a class="nav-link" aria-current="page" href="/expenses"><i class="fa-solid fa-lg fa-credit-card"></i> Expenses</a>
-          <% } %>
-        </li>
-        <li class="nav-item">
-          <% if(title=="Goals") { %>
-            <a class="nav-link active" aria-current="page" href="/goals"><i class="fa-solid fa-lg fa-target"></i> Goals</a>
-          <% } else { %>
-            <a class="nav-link" aria-current="page" href="/goals"><i class="fa-solid fa-lg fa-target"></i> Goals</a>
-          <% } %>
-        </li>
-        <% if (typeof displayName == 'string' && displayName) { %>
+
+        <% if (typeof isAuthenticated !== 'undefined' && isAuthenticated) { %>
+          <!-- Authenticated users: show full navigation -->
+          <li class="nav-item">
+            <% if (title === "Budgets") { %>
+              <a class="nav-link active" aria-current="page" href="/budgets"><i class="fa-solid fa-lg fa-wallet"></i> Budgets</a>
+            <% } else { %>
+              <a class="nav-link" aria-current="page" href="/budgets"><i class="fa-solid fa-lg fa-wallet"></i> Budgets</a>
+            <% } %>
+          </li>
+          <li class="nav-item">
+            <% if (title === "Expenses") { %>
+              <a class="nav-link active" aria-current="page" href="/expenses"><i class="fa-solid fa-lg fa-credit-card"></i> Expenses</a>
+            <% } else { %>
+              <a class="nav-link" aria-current="page" href="/expenses"><i class="fa-solid fa-lg fa-credit-card"></i> Expenses</a>
+            <% } %>
+          </li>
+          <li class="nav-item">
+            <% if (title === "Goals") { %>
+              <a class="nav-link active" aria-current="page" href="/goals"><i class="fa-solid fa-lg fa-target"></i> Goals</a>
+            <% } else { %>
+              <a class="nav-link" aria-current="page" href="/goals"><i class="fa-solid fa-lg fa-target"></i> Goals</a>
+            <% } %>
+          </li>
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fas fa-lg fa-user"></i> <%= displayName %>
@@ -48,10 +50,9 @@
             </ul>
           </li>
         <% } else { %>
+          <!-- Not authenticated: show only Home (splash) and Login -->
           <li class="nav-item">
-            <a href="/login" class="nav-link">
-              <i class="fas fa-lg fa-sign-in-alt"></i> Login
-            </a>
+            <a class="nav-link" href="/login"><i class="fas fa-lg fa-sign-in-alt"></i> Login</a>
           </li>
         <% } %>
     </div>
