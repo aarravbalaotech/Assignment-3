@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.min.css">
     <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
   </head>
   <body>
@@ -71,9 +72,8 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                   <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
-                  <li><a class="dropdown-item" href="/profile">Profile</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="document.getElementById('logoutFormHidden').submit(); return false;"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                 </ul>
               </li>
             <% } else { %>
@@ -87,6 +87,8 @@
         </div>
       </div>
     </nav>
+    <!-- Hidden logout form for POST-based logout (CSRF-safe) -->
+    <form id="logoutFormHidden" method="POST" action="/auth/logout" style="display:none;"></form>
     <script>
       // Client-side guard: if a user clicks a protected nav item while not authenticated,
       // redirect immediately to the login page for a clearer UX.
