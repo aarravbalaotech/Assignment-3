@@ -53,10 +53,12 @@ app.use(function(req, res, next) {
 // initialize flash
 app.use(flash());
 // user authentication
-passport.use(User.createStrategy());
-// serialize and deserialize the user information
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// configure passport strategies (local + OAuth) using centralized config
+try {
+  require('./passport')(passport, User);
+} catch (err) {
+  console.warn('Failed to configure passport strategies:', err && err.message);
+}
 // initialize the passport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -76,6 +78,7 @@ app.use(function(req, res, next) {
 // Import routes
 var indexRouter = require('../routes/index');
 var usersRouter = require('../routes/users');
+var oauthRouter = require('../routes/oauth');
 
 // Diagnostic: list files in server/routes at startup to help deployment debugging
 try {
@@ -104,6 +107,7 @@ app.use(express.static(path.join(__dirname, '../../node_modules')));
 // Mount routes (all server-rendered EJS)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/auth', oauthRouter);
 app.use('/budgets', budgetsRouter);
 app.use('/expenses', expensesRouter);
 app.use('/goals', goalsRouter);
